@@ -1,0 +1,20 @@
+name: Manual workflow
+on:
+  workflow_dispatch:
+    inputs:
+      name:
+        description: 'Person to greet'
+        default: 'World'
+        required: true
+
+jobs:
+  greet:
+    runs-on: ubuntu-latest
+    steps:
+    - name: download source data
+      env:
+        MONGO_DB_PASSWORD: ${{ secrets.MONGO_DB_PASSWORD }}
+        MONGO_DB_USERNAME: ${{ secrets.MONGO_DB_USERNAME }}
+      run: |
+        pip install -r requirements.txt
+        python3 get_data.py

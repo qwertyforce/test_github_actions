@@ -2,9 +2,10 @@ import os
 from datasets import load_dataset
 import pymongo
 
-username = os.environ["MONGO_DB_PASSWORD"] 
-password = os.environ["MONGO_DB_USERNAME"] 
+username = os.environ["MONGO_DB_USERNAME"] 
+password = os.environ["MONGO_DB_PASSWORD"] 
 
+print()
 available_symbols = set("АаБбВвГгДдЕеЁёЖжЗзИиЙйКкЛлМмНнОоПпРрСсТтУуФфХхЦцЧчШшЩщЪъЫыЬьЭэЮюЯя0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!$%()*+,-./:;<=>?@[]^_{|}№~ ")
 def clean_text(text):
     text = text.replace("\n", " ").replace("#", "")

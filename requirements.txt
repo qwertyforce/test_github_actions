@@ -1,0 +1,5 @@
+datasets
+zstandard
+jsonlines
+pysimdjson
+pymongo

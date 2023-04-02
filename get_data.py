@@ -1,11 +1,11 @@
 import os
 from datasets import load_dataset
 import pymongo
+from tqdm.auto import tqdm
 
 username = os.environ["MONGO_DB_USERNAME"] 
 password = os.environ["MONGO_DB_PASSWORD"] 
 
-print()
 available_symbols = set("АаБбВвГгДдЕеЁёЖжЗзИиЙйКкЛлМмНнОоПпРрСсТтУуФфХхЦцЧчШшЩщЪъЫыЬьЭэЮюЯя0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!$%()*+,-./:;<=>?@[]^_{|}№~ ")
 def clean_text(text):
     text = text.replace("\n", " ").replace("#", "")
@@ -23,7 +23,6 @@ def get_clean_send_data(split):
     else:
         col = mydb[split]
     
-    from tqdm import tqdm
     dataset = load_dataset('IlyaGusev/habr', split=split, streaming=True)
 
     thrash_timestamp = 1577836800 # 01/01/2020

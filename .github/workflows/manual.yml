@@ -11,6 +11,11 @@ jobs:
   greet:
     runs-on: ubuntu-latest
     steps:
+    - uses: actions/checkout@master # THIS IS IMPORTANT
+    - uses: actions/setup-python@v4 # THIS IS IMPORTANT
+      with:
+          python-version: '3.9'
+          cache: 'pip' # caching pip dependencies
     - name: download source data
       env:
         MONGO_DB_PASSWORD: ${{ secrets.MONGO_DB_PASSWORD }}

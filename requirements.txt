@@ -3,3 +3,4 @@ zstandard
 jsonlines
 pysimdjson
 pymongo
+tqdm

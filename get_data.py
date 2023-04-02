@@ -1,7 +1,7 @@
 import os
 from datasets import load_dataset
 import pymongo
-from tqdm import tqdm
+# from tqdm import tqdm
 
 username = os.environ["MONGO_DB_USERNAME"] 
 password = os.environ["MONGO_DB_PASSWORD"] 
@@ -27,7 +27,9 @@ def get_clean_send_data(split):
 
     thrash_timestamp = 1577836800 # 01/01/2020
     data = []
-    for item in tqdm(dataset,miniters=10000):
+    for idx, item in enumerate(dataset):
+        if idx % 10000==0:
+            print(idx)
         if item["language"] == "ru" and item["time_published"] >= thrash_timestamp and item["type"] == "article":
             new_item = {"id":item["id"], "title":item["title"],
                         "text_markdown":item["text_markdown"], "statistics":item["statistics"],

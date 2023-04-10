@@ -25,7 +25,7 @@ def get_clean_send_data(split):
     
     dataset = load_dataset('IlyaGusev/habr', split=split, streaming=True)
 
-    thrash_timestamp = 1577836800 # 01/01/2020
+    thrash_timestamp = 1420059600             # 1577836800 01/01/2020
     data = []
     for idx, item in enumerate(dataset):
         if idx % 10000==0:
@@ -42,4 +42,3 @@ def get_clean_send_data(split):
         pass
 
 get_clean_send_data("train")
-get_clean_send_data("test")

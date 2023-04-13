@@ -1,6 +1,7 @@
 import os
 from datasets import load_dataset
 import pymongo
+import time
 import random
 # from tqdm import tqdm
 
@@ -39,7 +40,7 @@ for idx, item in enumerate(dataset):
     if item["language"] == "ru" and item["time_published"] >= thrash_timestamp and item["type"] == "article":
         new_item = {"id":item["id"], "title":item["title"],
                     "text_markdown":item["text_markdown"], "statistics":item["statistics"],
-                    "hubs":item["hubs"], "flows":item["flows"], "tags":item["tags"], "time_published": item["time_published"]}
+                    "hubs":item["hubs"], "flows":item["flows"], "tags":item["tags"], "time_published": item["time_published"],"time_added_to_db":int(time.time())}
         new_item["text_markdown"] = clean_text(new_item["text_markdown"])
         data.append(new_item)
 random.shuffle(data)

@@ -3,3 +3,4 @@ transformers
 pymongo
 tqdm
 xgboost
+scikit-learn

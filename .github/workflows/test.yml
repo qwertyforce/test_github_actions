@@ -4,18 +4,18 @@ on:
 
 
 jobs:
-  vectorize_text:
+  train_models:
     runs-on: self-hosted
     steps:
     - uses: actions/checkout@master # THIS IS IMPORTANT
-    - name: download source data
+    - name: train_models
       env:
         MONGO_DB_PASSWORD: ${{ secrets.MONGO_DB_PASSWORD }}
         MONGO_DB_USERNAME: ${{ secrets.MONGO_DB_USERNAME }}
       run: |
-        sudo apt-get update
-        sudo apt-get install python3.9
+        sudo apt update
+        sudo apt install python3.9
         pip install -r requirements_runner.txt
-        python3 vectorize_text.py
+        python3 train.py
 
   

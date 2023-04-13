@@ -1,0 +1,23 @@
+name: Training pipeline222
+on:
+  workflow_dispatch:
+
+
+jobs:
+  vectorize_text:
+    runs-on: self-hosted
+    steps:
+    - uses: actions/checkout@master # THIS IS IMPORTANT
+    - uses: actions/setup-python@v4 # THIS IS IMPORTANT
+      with:
+          python-version: '3.9.13'
+          cache: 'pip' # caching pip dependencies
+    - name: download source data
+      env:
+        MONGO_DB_PASSWORD: ${{ secrets.MONGO_DB_PASSWORD }}
+        MONGO_DB_USERNAME: ${{ secrets.MONGO_DB_USERNAME }}
+      run: |
+        pip install -r requirements_runner.txt
+        python3 vectorize_text.py
+
+  

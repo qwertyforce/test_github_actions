@@ -27,7 +27,7 @@ jobs:
     - uses: actions/checkout@master # THIS IS IMPORTANT
     - uses: actions/setup-python@v4 # THIS IS IMPORTANT
       with:
-          python-version: '3.9'
+          python-version: '3.9.13'
           cache: 'pip' # caching pip dependencies
     - name: download source data
       env:

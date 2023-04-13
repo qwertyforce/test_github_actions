@@ -12,7 +12,7 @@ model.max_seq_length = MAX_SEQUENCE_LENGTH
 username = os.environ["MONGO_DB_USERNAME"] 
 password = os.environ["MONGO_DB_PASSWORD"] 
 
-myclient = pymongo.MongoClient(f"mongodb://{username}:{password}@135.181.98.162:33333/?authMechanism=DEFAULT")
+myclient = pymongo.MongoClient(f"mongodb://{username}:{password}@127.0.0.1:33333/?authMechanism=DEFAULT")
 mydb = myclient["habr_dataset"]
 
 batch_size = 8

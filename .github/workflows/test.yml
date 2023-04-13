@@ -1,0 +1,21 @@
+name: Training pipeline222
+on:
+  workflow_dispatch:
+
+
+jobs:
+  vectorize_text:
+    runs-on: self-hosted
+    steps:
+    - uses: actions/checkout@master # THIS IS IMPORTANT
+    - name: download source data
+      env:
+        MONGO_DB_PASSWORD: ${{ secrets.MONGO_DB_PASSWORD }}
+        MONGO_DB_USERNAME: ${{ secrets.MONGO_DB_USERNAME }}
+      run: |
+        sudo apt-get update
+        sudo apt-get install python3.9
+        pip install -r requirements_runner.txt
+        python3 vectorize_text.py
+
+  

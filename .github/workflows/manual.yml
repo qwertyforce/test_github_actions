@@ -1,6 +1,13 @@
 name: Training pipeline
 on:
   workflow_dispatch:
+    inputs:
+      update_best_model:
+        type: choice
+        description: update best model?
+        options: 
+        - True
+        - False
 
 
 jobs:
@@ -25,14 +32,44 @@ jobs:
     runs-on: self-hosted
     steps:
     - uses: actions/checkout@master # THIS IS IMPORTANT
-    - uses: actions/setup-python@v4 # THIS IS IMPORTANT
-      with:
-          python-version: '3.9.13'
-          cache: 'pip' # caching pip dependencies
-    - name: download source data
+    - name: vectorize_text
       env:
         MONGO_DB_PASSWORD: ${{ secrets.MONGO_DB_PASSWORD }}
         MONGO_DB_USERNAME: ${{ secrets.MONGO_DB_USERNAME }}
       run: |
+        sudo apt update
+        sudo apt install python3.9
         pip install -r requirements_runner.txt
         python3 vectorize_text.py
+
+  train_models:
+    if: github.event.inputs.update_best_model == 'False'
+    needs: vectorize_text
+    runs-on: self-hosted
+    steps:
+    - uses: actions/checkout@master # THIS IS IMPORTANT
+    - name: train_models
+      env:
+        MONGO_DB_PASSWORD: ${{ secrets.MONGO_DB_PASSWORD }}
+        MONGO_DB_USERNAME: ${{ secrets.MONGO_DB_USERNAME }}
+      run: |
+        sudo apt update
+        sudo apt install python3.9
+        pip install -r requirements_runner.txt
+        python3 train.py
+
+  update_models:
+    if: github.event.inputs.update_best_model == 'True'
+    needs: vectorize_text
+    runs-on: self-hosted
+    steps:
+    - uses: actions/checkout@master # THIS IS IMPORTANT
+    - name: train_models
+      env:
+        MONGO_DB_PASSWORD: ${{ secrets.MONGO_DB_PASSWORD }}
+        MONGO_DB_USERNAME: ${{ secrets.MONGO_DB_USERNAME }}
+      run: |
+        sudo apt update
+        sudo apt install python3.9
+        pip install -r requirements_runner.txt
+        python3 update_best_model.py

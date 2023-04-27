@@ -4,11 +4,11 @@ on:
 
 
 jobs:
-  train_models:
+  deploy:
     runs-on: self-hosted
     steps:
     - uses: actions/checkout@master # THIS IS IMPORTANT
-    - name: train_models
+    - name: deploy
       env:
         MONGO_DB_PASSWORD: ${{ secrets.MONGO_DB_PASSWORD }}
         MONGO_DB_USERNAME: ${{ secrets.MONGO_DB_USERNAME }}
@@ -16,6 +16,6 @@ jobs:
         sudo apt update
         sudo apt install python3.9
         pip install -r requirements_runner.txt
-        python3 train.py
+        python3 web_inference.py
 
   

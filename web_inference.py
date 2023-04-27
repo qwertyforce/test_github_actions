@@ -27,7 +27,11 @@ class LinearRegressor(torch.nn.Module):
     x = F.relu(x)
     x = self.linear3(x)
     return x
-  
+
+import sys
+thismodule = sys.modules["__main__"]
+setattr(thismodule, "LinearRegressor", LinearRegressor)
+
 import pymongo
 import pickle
 import os 

@@ -16,6 +16,6 @@ jobs:
         sudo apt update
         sudo apt install python3.9
         pip install -r requirements_runner.txt
-        python3 web_inference.py
+        nohup python3 web_inference.py &
 
   

@@ -123,7 +123,7 @@ print(mae)
 
 
 col = mydb["models"]
-col.insert_one({"training_date":int(time.time()),"type":"pytorch","mse":int(mse),"mae":int(mae),"model":pickle.dumps(model_lin_reg)})
+col.insert_one({"training_date":int(time.time()),"type":"pytorch","mse":int(mse),"mae":int(mae),"model":pickle.dumps(model_lin_reg),"optimized":False})
 
 # print('xgb')
 # regressor=xgb.XGBRegressor(eval_metric='rmse')

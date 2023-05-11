@@ -43,7 +43,7 @@ myclient = pymongo.MongoClient(f"mongodb://{username}:{password}@127.0.0.1:33333
 mydb = myclient["habr_dataset"]
 
 col = mydb["models"]
-models = list(col.find({}))
+models = list(col.find({"type":"pytorch","optimized":True}))
 best_mse = 99999
 best_model=None
 
@@ -52,8 +52,8 @@ for model in models:
         best_mse=model["mse"]
         best_model=model
 
-model_lin_reg = pickle.loads(best_model["model"])
 if best_model["type"] == "pytorch":
+   model_lin_reg = torch.load(pickle.loads(best_model["model"]))
    model_lin_reg.eval()
 
 available_symbols = set("АаБбВвГгДдЕеЁёЖжЗзИиЙйКкЛлМмНнОоПпРрСсТтУуФфХхЦцЧчШшЩщЪъЫыЬьЭэЮюЯя0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!$%()*+,-./:;<=>?@[]^_{|}№~ ")

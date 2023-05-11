@@ -1,8 +1,8 @@
 
-import uvicorn
-if __name__ == '__main__':
-    uvicorn.run('web_inference:app', host='0.0.0.0', port=32846, log_level="info")
-    exit()
+# import uvicorn
+# if __name__ == '__main__':
+#     uvicorn.run('web_inference:app', host='0.0.0.0', port=32846, log_level="info")
+#     exit()
 
 import numpy as np
 import torch

@@ -4,7 +4,24 @@ on:
 
 
 jobs:
+  optimize_model:
+    if: ${{ always() }}
+    runs-on: self-hosted
+    steps:
+    - uses: actions/checkout@master # THIS IS IMPORTANT
+    - name: optimize_model
+      env:
+        MONGO_DB_PASSWORD: ${{ secrets.MONGO_DB_PASSWORD }}
+        MONGO_DB_USERNAME: ${{ secrets.MONGO_DB_USERNAME }}
+      run: |
+        sudo apt update
+        sudo apt install python3.9
+        pip install -r requirements_runner.txt
+        python3 optimize_best_model.py  
+        
   deploy:
+    if: ${{ always() }}
+    needs: [optimize_model]
     runs-on: self-hosted
     steps:
     - uses: actions/checkout@master # THIS IS IMPORTANT
@@ -17,5 +34,5 @@ jobs:
         sudo apt install python3.9
         pip install -r requirements_runner.txt
         kill -9 $(sudo lsof -t -i:32846) || true
-        RUNNER_TRACKING_ID="" && nohup uvicorn web_inference:app --host 0.0.0.0 --port 32846 &  
+        RUNNER_TRACKING_ID="" && nohup uvicorn web_inference:app --host 0.0.0.0 --port 32846 &
   

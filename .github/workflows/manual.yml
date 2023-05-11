@@ -74,6 +74,22 @@ jobs:
         pip install -r requirements_runner.txt
         python3 update_best_model.py
         
+  optimize_model:
+    if: ${{ always() }}
+    needs: [train_models, update_models]
+    runs-on: self-hosted
+    steps:
+    - uses: actions/checkout@master # THIS IS IMPORTANT
+    - name: optimize_model
+      env:
+        MONGO_DB_PASSWORD: ${{ secrets.MONGO_DB_PASSWORD }}
+        MONGO_DB_USERNAME: ${{ secrets.MONGO_DB_USERNAME }}
+      run: |
+        sudo apt update
+        sudo apt install python3.9
+        pip install -r requirements_runner.txt
+        python3 optimize_best_model.py  
+        
   deploy:
     runs-on: self-hosted
     steps:

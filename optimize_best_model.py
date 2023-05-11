@@ -3,6 +3,7 @@ import torch
 import torch.nn.functional as F
 import torch_pruning as tp
 import time 
+import io
 
 class LinearRegressor(torch.nn.Module):
   def __init__(self, input_dim=312, output_dim=1):
@@ -83,4 +84,7 @@ print(mae)
 
 
 col = mydb["models"]
-col.insert_one({"training_date":int(time.time()),"type":"pytorch","mse":int(mse),"mae":int(mae),"model":pickle.dumps(model_lin_reg),"optimized":True})
+buff = io.BytesIO()
+torch.save(model_lin_reg, buff)
+buff.seek(0)
+col.insert_one({"training_date":int(time.time()),"type":"pytorch","mse":int(mse),"mae":int(mae),"model":pickle.dumps(buff),"optimized":True})

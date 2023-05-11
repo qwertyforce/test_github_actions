@@ -17,5 +17,5 @@ jobs:
         sudo apt install python3.9
         pip install -r requirements_runner.txt
         killport 32846
-        RUNNER_TRACKING_ID="" && nohup uvicorn web_inference:app &
+        RUNNER_TRACKING_ID="" && nohup uvicorn web_inference:app --port 32846 &
   

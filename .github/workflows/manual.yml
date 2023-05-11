@@ -91,6 +91,7 @@ jobs:
         python3 optimize_best_model.py  
         
   deploy:
+    if: ${{ always() }}
     needs: [optimize_model]
     runs-on: self-hosted
     steps:

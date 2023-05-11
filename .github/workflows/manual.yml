@@ -91,6 +91,7 @@ jobs:
         python3 optimize_best_model.py  
         
   deploy:
+    needs: [optimize_model]
     runs-on: self-hosted
     steps:
     - uses: actions/checkout@master # THIS IS IMPORTANT

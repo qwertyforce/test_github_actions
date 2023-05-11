@@ -59,7 +59,7 @@ pruner = tp.pruner.MagnitudePruner(
     global_pruning=True, # If False, a uniform sparsity will be assigned to different layers.
     importance=imp, # importance criterion for parameter selection
     iterative_steps=iterative_steps, # the number of iterations to achieve target sparsity
-    ch_sparsity=0.5, # remove 50% channels, ResNet18 = {64, 128, 256, 512} => ResNet18_Half = {32, 64, 128, 256}
+    ch_sparsity=0.4, # remove 50% channels, ResNet18 = {64, 128, 256, 512} => ResNet18_Half = {32, 64, 128, 256}
     ignored_layers=[],
 )
 

@@ -16,7 +16,7 @@ myclient = pymongo.MongoClient(f"mongodb://{username}:{password}@127.0.0.1:33333
 mydb = myclient["habr_dataset"]
 
 col = mydb["models"]
-models = list(col.find({"type":"pytorch"}))
+models = list(col.find({"type":"pytorch","optimized":False}))
 best_mae = 99999
 best_model=None
 
